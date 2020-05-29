@@ -1,2 +1,4 @@
 # Project exclude paths
 /venv/
+# Mac files
+.DS_Store
