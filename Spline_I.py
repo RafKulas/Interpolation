@@ -108,36 +108,36 @@ def S_function(points):
 def interpolate_with_spline(file, amount_of_points):
     f = open(file, 'r')
     data = list(csv.reader(f))
-    k = len(data)//amount_of_points
+    k = len(data) // amount_of_points
     data = data[1:]
-    interpolation_data = data[::k]
+    i_data = data[::k]
 
-    F = S_function(interpolation_data)
+    given_x = []
+    given_y = []
+    for point in i_data:
+        x, y = point
+        given_x.append(float(x))
+        given_y.append(float(y))
 
-    distance = []
-    height = []
-    interpolated_height = []
+    fun_S = S_function(i_data)
+
+    x_arr = []
+    y_arr = []
+    interpolated_y = []
     for point in data:
         x, y = point
-        distance.append(float(x))
-        height.append(float(y))
-        interpolated_height.append(F(float(x)))
+        x_arr.append(float(x))
+        y_arr.append(float(y))
+        interpolated_y.append(fun_S(float(x)))
 
-    train_distance = []
-    train_height = []
-    for point in interpolation_data:
-        x, y = point
-        train_distance.append(float(x))
-        train_height.append(float(y))
+    shift = -1 * interpolated_y.count(np.nan)
 
-    shift = -1 * interpolated_height.count(np.nan)
-
-    pyplot.plot(distance, height, 'r.', label='Pełen zakres danych')
-    pyplot.plot(train_distance, train_height, 'g.', label='Ograniczone dane do interpolacji')
-    pyplot.plot(distance[:shift], interpolated_height[:shift], color='blue', label='Wynik interpolacji')
+    pyplot.plot(x_arr, y_arr, 'r.', label='Pełen zakres danych')
+    pyplot.plot(given_x, given_y, 'g.', label='Ograniczone dane do interpolacji')
+    pyplot.plot(x_arr[:shift], interpolated_y[:shift], color='blue', label='Wynik interpolacji')
     pyplot.legend()
     pyplot.ylabel('Wysokość[m]')
     pyplot.xlabel('Odległość[m]')
-    pyplot.title('Interpolacją Splajnami, ' + str(len(interpolation_data)) + ' punkty(ów)\n' + file)
+    pyplot.title('Interpolacją Splajnami, ' + str(len(i_data)) + ' punkty(ów)\n' + file)
     pyplot.grid()
     pyplot.show()
