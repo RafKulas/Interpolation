@@ -1,7 +1,29 @@
 import argparse
 import os
+import csv
 import Lagrange
 import Spline_I
+from matplotlib import pyplot
+
+
+def drawAlldata():
+    for csvf in os.listdir('./paths'):
+        if csvf != ".DS_Store":  # Problem while running on MacOS
+            f = open('./paths/' + csvf, 'r')
+            data = list(csv.reader(f))
+            xs = []
+            ys = []
+            for point in data[1:]:
+                x, y = point
+                xs.append(float(x))
+                ys.append(float(y))
+            pyplot.plot(xs, ys, 'r.', label='Pełen zakres danych')
+            pyplot.legend()
+            pyplot.ylabel('Wysokość[m]')
+            pyplot.xlabel('Odległość[m]')
+            pyplot.title('Wizualizacja wszystkich punktówd\nPlik: ' + csvf)
+            pyplot.grid()
+            pyplot.show()
 
 
 def strToBool(v):
@@ -59,4 +81,3 @@ if __name__ == "__main__":
     elif args.file is not None:
         Lagrange.lagrange(args.file, points, cut=cut)
         Spline_I.interpolate_with_spline(args.file, points)
-

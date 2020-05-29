@@ -12,7 +12,7 @@ def S_function(points):
         A = np.zeros((4 * (n - 1), 4 * (n - 1)))
         b = np.zeros((4 * (n - 1), 1))
 
-        # step 1: S_i(x_i) = f(x_i)
+        # S_i(x_i) = f(x_i)
         for i in range(n - 1):
             x, y = points[i]
             row = np.zeros(4 * (n - 1))
@@ -60,7 +60,7 @@ def S_function(points):
             A[4 * (i + 1) + 1] = row
             b[4 * (i + 1) + 1] = float(0)
 
-        # S0''(x_0) = 0 and Sn-1''(x_n-1) = 0
+        # S_0''(x_0) = 0 and S_n-1''(x_n-1) = 0
 
         # x_0
         row = np.zeros(4 * (n - 1))

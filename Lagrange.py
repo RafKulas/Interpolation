@@ -43,9 +43,11 @@ def lagrange(file, amount_of_points, cut=False):
         interpolated_y.append(fun_fi(float(x)))
 
     if cut is True:
-        pyplot.plot(x_arr[len(x_arr)//3:2*len(x_arr)//3], y_arr[len(x_arr)//3:2*len(x_arr)//3], 'r.', label='Pełen zakres danych')
-        pyplot.plot(given_x[len(x_arr)//3:2*len(x_arr)//3], given_y[len(x_arr)//3:2*len(x_arr)//3], 'g.', label='Ograniczone dane do interpolacji')
-        pyplot.plot(x_arr[len(x_arr)//3:2*len(x_arr)//3], interpolated_y[len(x_arr)//3:2*len(x_arr)//3], color='blue', label='Wynik interpolacji')
+        n = len(x_arr)//3
+        m = len(given_x)//3
+        pyplot.plot(x_arr[n:2*n], y_arr[n:2*n], 'r.', label='Pełen zakres danych')
+        pyplot.plot(given_x[m:2*m], given_y[m:2*m], 'g.', label='Ograniczone dane do interpolacji')
+        pyplot.plot(x_arr[n:2*n], interpolated_y[n:2*n], color='blue', label='Wynik interpolacji')
     else:
         pyplot.yscale('symlog')
         pyplot.plot(x_arr, y_arr, 'r.', label='Pełen zakres danych')
