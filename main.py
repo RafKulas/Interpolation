@@ -66,12 +66,10 @@ if __name__ == "__main__":
             for file in os.listdir('./paths'):
                 if file != ".DS_Store":  # Problem while running on MacOS
                     start = time.time()
-                    Lagrange.lagrange('./paths/' + file, points, cut=cut)
-                    end = time.time()
+                    end = Lagrange.lagrange('./paths/' + file, points, cut=cut)
                     print("L: "+str(end-start))
                     start = time.time()
-                    Spline_I.interpolate_with_spline('./paths/' + file, points)
-                    end = time.time()
+                    end = Spline_I.interpolate_with_spline('./paths/' + file, points)
                     print("S: "+str(end-start))
 
         else:
@@ -79,31 +77,25 @@ if __name__ == "__main__":
                 if file != ".DS_Store":  # Problem while running on MacOS
                     if args.type == "S":
                         start = time.time()
-                        Spline_I.interpolate_with_spline('./paths/' + file, points)
-                        end = time.time()
+                        end = Spline_I.interpolate_with_spline('./paths/' + file, points)
                         print("S: " + str(end - start))
                     elif args.type == "L":
                         start = time.time()
-                        Lagrange.lagrange('./paths/' + file, points, cut=cut)
-                        end = time.time()
+                        end = Lagrange.lagrange('./paths/' + file, points, cut=cut)
                         print("L: " + str(end - start))
     elif args.file is not None and args.type is not None:
         if args.type == "S":
             start = time.time()
-            Spline_I.interpolate_with_spline(args.file, points)
-            end = time.time()
+            end = Spline_I.interpolate_with_spline(args.file, points)
             print("S: " + str(end - start))
         elif args.type == "L":
             start = time.time()
-            Lagrange.lagrange(args.file, points, cut=cut)
-            end = time.time()
+            end = Lagrange.lagrange(args.file, points, cut=cut)
             print("L: " + str(end - start))
     elif args.file is not None:
         start = time.time()
-        Lagrange.lagrange(args.file, points, cut=cut)
-        end = time.time()
+        end = Lagrange.lagrange(args.file, points, cut=cut)
         print("L: " + str(end - start))
         start = time.time()
-        Spline_I.interpolate_with_spline(args.file, points)
-        end = time.time()
+        end = Spline_I.interpolate_with_spline(args.file, points)
         print("S: " + str(end - start))

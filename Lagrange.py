@@ -1,6 +1,6 @@
 import csv
 from matplotlib import pyplot
-
+import time
 
 def fi_function(points):
     def fi(x):
@@ -42,6 +42,7 @@ def lagrange(file, amount_of_points, cut=False):
         y_arr.append(float(y))
         interpolated_y.append(fun_fi(float(x)))
 
+    end = time.time()
     if cut is True:
         n = len(x_arr)//3
         m = len(given_x)//3
@@ -59,3 +60,4 @@ def lagrange(file, amount_of_points, cut=False):
     pyplot.title('Interpolacja Lagrange\'a, ' + str(len(i_data)) + ' punkty(ow)\nPlik: ' + file)
     pyplot.grid()
     pyplot.show()
+    return end

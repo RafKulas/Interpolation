@@ -1,5 +1,5 @@
-import os
 import csv
+import time
 import numpy as np
 import scipy.linalg as sp
 from matplotlib import pyplot
@@ -131,7 +131,7 @@ def interpolate_with_spline(file, amount_of_points):
         interpolated_y.append(fun_S(float(x)))
 
     shift = -1 * interpolated_y.count(np.nan)
-
+    end = time.time()
     pyplot.plot(x_arr, y_arr, 'r.', label='Pełen zakres danych')
     pyplot.plot(given_x, given_y, 'g.', label='Ograniczone dane do interpolacji')
     pyplot.plot(x_arr[:shift], interpolated_y[:shift], color='blue', label='Wynik interpolacji')
@@ -141,3 +141,4 @@ def interpolate_with_spline(file, amount_of_points):
     pyplot.title('Interpolacją Splajnami, ' + str(len(i_data)) + ' punkty(ów)\n' + file)
     pyplot.grid()
     pyplot.show()
+    return end
