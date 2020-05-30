@@ -2,6 +2,7 @@ import argparse
 import os
 import csv
 import Lagrange
+import time
 import Spline_I
 from matplotlib import pyplot
 
@@ -64,20 +65,45 @@ if __name__ == "__main__":
         if args.type is None:
             for file in os.listdir('./paths'):
                 if file != ".DS_Store":  # Problem while running on MacOS
+                    start = time.time()
                     Lagrange.lagrange('./paths/' + file, points, cut=cut)
+                    end = time.time()
+                    print("L: "+str(end-start))
+                    start = time.time()
                     Spline_I.interpolate_with_spline('./paths/' + file, points)
+                    end = time.time()
+                    print("S: "+str(end-start))
+
         else:
             for file in os.listdir('./paths'):
                 if file != ".DS_Store":  # Problem while running on MacOS
                     if args.type == "S":
+                        start = time.time()
                         Spline_I.interpolate_with_spline('./paths/' + file, points)
-                    else:
+                        end = time.time()
+                        print("S: " + str(end - start))
+                    elif args.type == "L":
+                        start = time.time()
                         Lagrange.lagrange('./paths/' + file, points, cut=cut)
+                        end = time.time()
+                        print("L: " + str(end - start))
     elif args.file is not None and args.type is not None:
         if args.type == "S":
+            start = time.time()
             Spline_I.interpolate_with_spline(args.file, points)
+            end = time.time()
+            print("S: " + str(end - start))
         elif args.type == "L":
+            start = time.time()
             Lagrange.lagrange(args.file, points, cut=cut)
+            end = time.time()
+            print("L: " + str(end - start))
     elif args.file is not None:
+        start = time.time()
         Lagrange.lagrange(args.file, points, cut=cut)
+        end = time.time()
+        print("L: " + str(end - start))
+        start = time.time()
         Spline_I.interpolate_with_spline(args.file, points)
+        end = time.time()
+        print("S: " + str(end - start))
