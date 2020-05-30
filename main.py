@@ -21,7 +21,7 @@ def drawAlldata():
             pyplot.legend()
             pyplot.ylabel('Wysokość[m]')
             pyplot.xlabel('Odległość[m]')
-            pyplot.title('Wizualizacja wszystkich punktówd\nPlik: ' + csvf)
+            pyplot.title('Wizualizacja wszystkich punktów\nPlik: ' + csvf)
             pyplot.grid()
             pyplot.show()
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     if args.cut is not None:
         cut = args.cut
 
-    if args.type is None and args.file is None:
+    if args.file is None:
         if args.type is None:
             for file in os.listdir('./paths'):
                 if file != ".DS_Store":  # Problem while running on MacOS
